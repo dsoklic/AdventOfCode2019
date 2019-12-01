@@ -2,11 +2,9 @@ package day1
 
 import java.io.File
 
-val FILE_PATH = "input.txt"
+const val FILE_PATH = "input.txt"
 
-fun calculateFuel(mass: Int): Int {
-    return mass / 3 - 2
-}
+fun calculateFuel(mass: Int): Int = mass / 3 - 2
 
 fun calculateFuelWithAdditionalFuel(mass: Int): Int {
     var allFuelRequired = 0
