@@ -5,14 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>AdventOfCode2019</artifactId>
+    <artifactId>Day4</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <modules>
-        <module>Day1</module>
-        <module>Day2</module>
-        <module>Day3</module>
-        <module>Day4</module>
-    </modules>
-
+    
 </project>
