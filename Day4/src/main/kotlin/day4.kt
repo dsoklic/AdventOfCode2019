@@ -4,18 +4,18 @@ const val START = 356261
 const val END = 846303
 
 fun passwordValid(password: Int): Boolean {
-    val passwordPairs = password.toString().zipWithNext();
+    val passwordPairs = password.toString().zipWithNext()
 
     if (!passwordPairs.any { (a, b) -> a == b }) {
         // Two numbers are not in sequence.
-        return false;
+        return false
     }
 
     if(!passwordPairs.all { (a, b) -> a <= b }) {
-        return false;
+        return false
     }
 
-    return true;
+    return true
 }
 
 fun passwordValidPart2(password: Int): Boolean {
@@ -25,8 +25,7 @@ fun passwordValidPart2(password: Int): Boolean {
     var currentChar = passwordString[0]
     var sequenceLength = 1
 
-    for (i in 1 until passwordString.length) {
-        val newChar = passwordString[i]
+    for (newChar in passwordString) {
         if (currentChar == newChar) {
             sequenceLength++
         } else {
@@ -43,7 +42,7 @@ fun passwordValidPart2(password: Int): Boolean {
 }
 
 fun main() {
-    val passwordOptions = (START..END);
+    val passwordOptions = (START..END)
     val part1 = passwordOptions.count { passwordValid(it) }
     val part2 = passwordOptions.filter { passwordValid(it) }.count { passwordValidPart2(it) }
     println("Part 1: $part1")
