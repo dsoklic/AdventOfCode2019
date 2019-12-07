@@ -131,19 +131,27 @@ fun amplifiersPart1(phases: List<Int>, program: List<Int>): Int {
     return eOutQ.remove()
 }
 
-//fun amplifiersPart2(phases: List<Int>, program: List<Int>): Int {
-//    var signal = 0
-//    val ampMemories = (1..5).map { program.toMutableList() }.toList()
-//
-//    do {
-//        val startSignal = signal
-//        phases.forEachIndexed { i, phase ->
-//            signal = executeProgram(LinkedList(listOf(phase, signal)), ampMemories[i])
-//        }
-//    } while (startSignal != signal)
-//
-//    return signal
-//}
+fun amplifiersPart2(phases: List<Int>, program: List<Int>): Int {
+    val eaInpQ = LinkedList<Int>(listOf(phases[0], 0))
+    val abInpQ = LinkedList<Int>(listOf(phases[1]))
+    val bcInpQ = LinkedList<Int>(listOf(phases[2]))
+    val cdInpQ = LinkedList<Int>(listOf(phases[3]))
+    val deInpQ = LinkedList<Int>(listOf(phases[4]))
+
+    val amplifiers = listOf(
+        Computer(eaInpQ, abInpQ, program),
+        Computer(abInpQ, bcInpQ, program),
+        Computer(bcInpQ, cdInpQ, program),
+        Computer(cdInpQ, deInpQ, program),
+        Computer(deInpQ, eaInpQ, program)
+    )
+
+    while (amplifiers.any { it.running }) {
+        amplifiers.forEach{ it.executeProgram() }
+    }
+
+    return eaInpQ.remove()
+}
 
 fun allPhaseCombinations(part1: Boolean): List<List<Int>> {
     var listOfPhases = mutableListOf<List<Int>>()
@@ -174,7 +182,6 @@ fun main() {
     val part1 = allPhaseCombinations(part1 = true).map { Pair(it, amplifiersPart1(it, program)) }.maxBy { it.second }
     println(part1)
 
-//    val testProgram = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5".toProgram()
-//    val part2 = allPhaseCombinations(part1 = false).map { Pair(it, amplifiersPart2(it, testProgram)) }.maxBy { it.second }
-//    println(part2)
+    val part2 = allPhaseCombinations(part1 = false).map { Pair(it, amplifiersPart2(it, program)) }.maxBy { it.second }
+    println(part2)
 }
