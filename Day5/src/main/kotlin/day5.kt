@@ -51,7 +51,7 @@ fun executeProgram(inputValue: Int, programMemory: MutableList<Int>) {
                 index += 2
             }
             OUTPUT -> {
-                val output = programMemory[programMemory[index+1]]
+                val output = getInput(programMemory[index+1], input1Mode, programMemory)
                 index += 2
                 println("Output: $output")
             }
@@ -76,14 +76,14 @@ fun executeProgram(inputValue: Int, programMemory: MutableList<Int>) {
                 val inp1 = getInput(programMemory[index+1], input1Mode, programMemory)
                 val inp2 = getInput(programMemory[index+2], input2Mode, programMemory)
 
-                programMemory[index+3] = if (inp1 < inp2) 1 else 0
+                programMemory[programMemory[index+3]] = if (inp1 < inp2) 1 else 0
                 index += 4
             }
             EQUALS -> {
                 val inp1 = getInput(programMemory[index+1], input1Mode, programMemory)
                 val inp2 = getInput(programMemory[index+2], input2Mode, programMemory)
 
-                programMemory[index+3] = if (inp1 == inp2) 1 else 0
+                programMemory[programMemory[index+3]] = if (inp1 == inp2) 1 else 0
                 index += 4
             }
 
@@ -100,7 +100,6 @@ fun getInput(parameter: Int, mode: Mode, memory: List<Int>): Int = when (mode) {
 
 fun main() {
     val input = File(FILE_PATH).readText().split(',').map{ it.toInt() }.toMutableList()
-
     executeProgram(1, input)
     println("---- part 2 -----")
     executeProgram(5, input)
