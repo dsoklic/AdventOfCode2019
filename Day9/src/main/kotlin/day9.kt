@@ -126,8 +126,8 @@ class Computer(val inputQueue: Queue<Long>, val outputQueue: Queue<Long>, progra
 
     private fun getInput(parameter: Long, mode: Mode): Long = when (mode) {
         Mode.Immediate -> parameter
-        Mode.Position -> programMemory.getOrElse<Long>(parameter.toInt()) { 0L }
-        Mode.Relative -> programMemory.getOrElse<Long>((relativeBase + parameter).toInt()) { 0L }
+        Mode.Position -> programMemory.getOrElse(parameter.toInt()) { 0L }
+        Mode.Relative -> programMemory.getOrElse((relativeBase + parameter).toInt()) { 0L }
     }
 
     private fun setOutput(position: Long, value: Long, mode: Mode) {
@@ -151,9 +151,6 @@ class Computer(val inputQueue: Queue<Long>, val outputQueue: Queue<Long>, progra
 fun String.toProgram(): List<Long> = this.split(',').map{ it.toLong() }.toList()
 
 fun main() {
-//    val test = "109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99".toProgram()
-//    val test = "1102,34915192,34915192,7,4,7,99,0".toProgram()
-
     val program = File("input.txt").readText().toProgram()
 
     // Part 1
@@ -161,7 +158,7 @@ fun main() {
         val inputQ = LinkedList<Long>(listOf(1L))
         val outputQ = LinkedList<Long>()
 
-        val computer = Computer(inputQ, outputQ, program);
+        val computer = Computer(inputQ, outputQ, program)
         computer.executeProgram()
 
         while (outputQ.isNotEmpty()) {
@@ -174,7 +171,7 @@ fun main() {
         val inputQ = LinkedList<Long>(listOf(2L))
         val outputQ = LinkedList<Long>()
 
-        val computer = Computer(inputQ, outputQ, program);
+        val computer = Computer(inputQ, outputQ, program)
         computer.executeProgram()
 
         while (outputQ.isNotEmpty()) {
